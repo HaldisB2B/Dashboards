@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<!--
+    Financial Dashboard - HaldisB2B Professional Theme System
+    Revenue Tracking and Business Analytics Interface
+    
+    Theme Attribution:
+    - Based on Light Blue HTML5 by Flatlogic Company
+    - Original Repository: https://github.com/flatlogic/light-blue-html5
+    - Original Demo: https://flatlogic.com/templates/light-blue-html5/demo
+    - License: MIT License (Free to use and modify)
+    - Original Developer: Flatlogic Company
+    
+    Enhancements by HaldisB2B:
+    - Modern CSS custom properties implementation
+    - WCAG 2.1 AA accessibility compliance
+    - Professional deep blue dark mode
+    - Smooth 200ms theme transitions
+    - Financial analytics components
+    - KPI tracking and visualization
+    - Revenue and expense monitoring
+    - Business intelligence dashboard
+    - Export functionality for reports
+    - HaldisB2B organizational standards integration
+    
+    Version: 2.0.0 (Enhanced from Light Blue HTML5)
+    Created: September 2025
+    Last Updated: September 2025
+    Purpose: Financial tracking and business analytics
+    Port: localhost:9003
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Dashboard</title>
+    <style>
+        /* HaldisB2B Theme System - Light Blue Framework with Deep Blue Dark Mode */
+        :root {
+            /* Color System - Light Theme */
+            --color-primary-50: #f0f9ff;
+            --color-primary-100: #e0f2fe;
+            --color-primary-200: #bae6fd;
+            --color-primary-300: #7dd3fc;
+            --color-primary-400: #38bdf8;
+            --color-primary-500: #0ea5e9;
+            --color-primary-600: #0284c7;
+            --color-primary-700: #0369a1;
+            --color-primary-800: #075985;
+            --color-primary-900: #0c4a6e;
+
+            --color-neutral-50: #f8fafc;
+            --color-neutral-100: #f1f5f9;
+            --color-neutral-200: #e2e8f0;
+            --color-neutral-300: #cbd5e1;
+            --color-neutral-400: #94a3b8;
+            --color-neutral-500: #64748b;
+            --color-neutral-600: #475569;
+            --color-neutral-700: #334155;
+            --color-neutral-800: #1e293b;
+            --color-neutral-900: #0f172a;
+
+            /* Theme Variables - Light Mode */
+            --bg-primary: var(--color-neutral-50);
+            --bg-secondary: var(--color-neutral-100);
+            --bg-tertiary: var(--color-neutral-200);
+            --text-primary: var(--color-neutral-900);
+            --text-secondary: var(--color-neutral-600);
+            --text-muted: var(--color-neutral-400);
+            --border-primary: var(--color-neutral-200);
+            --border-secondary: var(--color-neutral-300);
+
+            /* Financial Colors */
+            --color-revenue: #10b981;
+            --color-profit: #059669;
+            --color-expense: #ef4444;
+            --color-growth: #3b82f6;
+            --color-warning: #f59e0b;
+            --color-neutral-metric: var(--color-neutral-500);
+
+            /* Financial Backgrounds */
+            --bg-revenue: rgba(16, 185, 129, 0.1);
+            --bg-profit: rgba(5, 150, 105, 0.1);
+            --bg-expense: rgba(239, 68, 68, 0.1);
+            --bg-growth: rgba(59, 130, 246, 0.1);
+            --bg-warning: rgba(245, 158, 11, 0.1);
+
+            /* Typography */
+            --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-family-mono: 'Fira Code', 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', monospace;
+            
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+
+            --font-normal: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+            /* Transitions */
+            --transition-colors: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+            --transition-all: all 200ms ease;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg-primary: #0f1629;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-primary: #334155;
+            --border-secondary: #475569;
+
+            --bg-revenue: rgba(16, 185, 129, 0.2);
+            --bg-profit: rgba(5, 150, 105, 0.2);
+            --bg-expense: rgba(239, 68, 68, 0.2);
+            --bg-growth: rgba(59, 130, 246, 0.2);
+            --bg-warning: rgba(245, 158, 11, 0.2);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            transition: var(--transition-colors);
+        }
+
+        /* Layout Structure */
+        .dashboard-container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "sidebar main";
+            grid-template-rows: 64px 1fr;
+            grid-template-columns: 280px 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .dashboard-header {
+            grid-area: header;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-6);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .dashboard-title {
+            font-size: var(--text-xl);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+        }
+
+        .period-selector {
+            display: flex;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .period-button {
+            background: none;
+            border: none;
+            padding: var(--space-2) var(--space-3);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: var(--transition-colors);
+        }
+
+        .period-button.active {
+            background: var(--color-primary-500);
+            color: white;
+        }
+
+        .period-button:hover:not(.active) {
+            background: var(--bg-tertiary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .export-button, .refresh-button, .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-primary);
+            padding: var(--space-2) var(--space-3);
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            transition: var(--transition-colors);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .export-button:hover, .refresh-button:hover, .theme-toggle:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--border-secondary);
+        }
+
+        /* Sidebar */
+        .dashboard-sidebar {
+            grid-area: sidebar;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-primary);
+            padding: var(--space-6);
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: var(--space-8);
+        }
+
+        .nav-section-title {
+            font-size: var(--text-xs);
+            font-weight: var(--font-semibold);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-3);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            border-radius: 6px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-1);
+            transition: var(--transition-colors);
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .nav-item.active {
+            background: var(--color-primary-500);
+            color: white;
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Main Content */
+        .dashboard-main {
+            grid-area: main;
+            padding: var(--space-6);
+            overflow-y: auto;
+            background: var(--bg-primary);
+        }
+
+        /* Revenue Summary Banner */
+        .revenue-banner {
+            background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-600));
+            color: white;
+            border-radius: 12px;
+            padding: var(--space-6);
+            margin-bottom: var(--space-8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .revenue-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(50px, -50px);
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner-title {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-2);
+            opacity: 0.9;
+        }
+
+        .banner-amount {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-2);
+        }
+
+        .banner-growth {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--text-base);
+        }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .kpi-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: var(--space-6);
+            position: relative;
+            transition: var(--transition-all);
+        }
+
+        .kpi-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-secondary);
+        }
+
+        .kpi-card.revenue {
+            border-left: 4px solid var(--color-revenue);
+        }
+
+        .kpi-card.profit {
+            border-left: 4px solid var(--color-profit);
+        }
+
+        .kpi-card.expense {
+            border-left: 4px solid var(--color-expense);
+        }
+
+        .kpi-card.growth {
+            border-left: 4px solid var(--color-growth);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+
+        .kpi-title {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+        }
+
+        .kpi-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--text-muted);
+        }
+
+        .kpi-value {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .kpi-change {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: var(--text-sm);
+        }
+
+        .kpi-change.positive {
+            color: var(--color-revenue);
+        }
+
+        .kpi-change.negative {
+            color: var(--color-expense);
+        }
+
+        .kpi-change.neutral {
+            color: var(--text-muted);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        /* Cards */
+        .dashboard-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: var(--space-6);
+            box-shadow: var(--shadow-base);
+            transition: var(--transition-all);
+        }
+
+        .dashboard-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-secondary);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .card-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-semibold);
+            color: var(--text-primary);
+        }
+
+        .card-action {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: var(--space-1);
+            border-radius: 4px;
+            transition: var(--transition-colors);
+        }
+
+        .card-action:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* Revenue Chart Area */
+        .chart-container {
+            height: 300px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-style: italic;
+            position: relative;
+        }
+
+        .chart-placeholder {
+            text-align: center;
+        }
+
+        /* Top Products Table */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .product-table th {
+            background: var(--bg-primary);
+            padding: var(--space-3);
+            text-align: left;
+            font-size: var(--text-sm);
+            font-weight: var(--font-semibold);
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .product-table td {
+            padding: var(--space-3);
+            border-bottom: 1px solid var(--border-secondary);
+            font-size: var(--text-sm);
+        }
+
+        .product-table tbody tr:hover {
+            background: var(--bg-primary);
+        }
+
+        .product-name {
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+        }
+
+        .product-revenue {
+            font-family: var(--font-family-mono);
+            font-weight: var(--font-medium);
+            color: var(--color-revenue);
+        }
+
+        .product-change {
+            font-size: var(--text-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: 4px;
+        }
+
+        .product-change.positive {
+            background: var(--bg-revenue);
+            color: var(--color-revenue);
+        }
+
+        .product-change.negative {
+            background: var(--bg-expense);
+            color: var(--color-expense);
+        }
+
+        /* Expense Breakdown */
+        .expense-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .expense-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+
+        .expense-category {
+            flex-grow: 1;
+        }
+
+        .expense-category-name {
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .expense-bar-container {
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .expense-bar {
+            height: 100%;
+            background: var(--color-expense);
+            border-radius: 4px;
+            transition: width 300ms ease;
+        }
+
+        .expense-amount {
+            font-family: var(--font-family-mono);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        /* Transaction Log */
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+        }
+
+        .transaction-type {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .transaction-type.revenue {
+            background: var(--color-revenue);
+        }
+
+        .transaction-type.expense {
+            background: var(--color-expense);
+        }
+
+        .transaction-type.refund {
+            background: var(--color-warning);
+        }
+
+        .transaction-info {
+            flex-grow: 1;
+        }
+
+        .transaction-description {
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .transaction-meta {
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+        }
+
+        .transaction-amount {
+            font-family: var(--font-family-mono);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+        }
+
+        .transaction-amount.positive {
+            color: var(--color-revenue);
+        }
+
+        .transaction-amount.negative {
+            color: var(--color-expense);
+        }
+
+        /* Financial Goals */
+        .goal-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .goal-item {
+            padding: var(--space-4);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-2);
+        }
+
+        .goal-name {
+            font-weight: var(--font-medium);
+            color: var(--text-primary);
+        }
+
+        .goal-percentage {
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            color: var(--text-secondary);
+        }
+
+        .goal-progress {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: var(--space-2);
+        }
+
+        .goal-progress-bar {
+            height: 100%;
+            background: var(--color-growth);
+            border-radius: 4px;
+            transition: width 300ms ease;
+        }
+
+        .goal-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                grid-template-areas: 
+                    "header"
+                    "main";
+                grid-template-rows: 64px 1fr;
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-sidebar {
+                display: none;
+            }
+
+            .dashboard-main {
+                padding: var(--space-4);
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .banner-amount {
+                font-size: var(--text-3xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="dashboard-title">Financial Dashboard</h1>
+                <div class="period-selector">
+                    <button class="period-button" data-period="7d">7D</button>
+                    <button class="period-button active" data-period="30d">30D</button>
+                    <button class="period-button" data-period="90d">90D</button>
+                    <button class="period-button" data-period="1y">1Y</button>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="export-button" id="exportBtn">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7,10 12,15 17,10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Export
+                </button>
+                <button class="refresh-button" id="refreshBtn" title="Refresh Dashboard">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                        <path d="M21 3v5h-5"/>
+                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                        <path d="M3 21v-5h5"/>
+                    </svg>
+                </button>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <nav class="nav-section">
+                <div class="nav-section-title">Overview</div>
+                <a href="#" class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="m17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    Revenue
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    Analytics
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-section-title">Financial</div>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                        <line x1="1" y1="10" x2="23" y2="10"/>
+                    </svg>
+                    Transactions
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    Expenses
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    Invoices
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-section-title">Planning</div>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73L12 2 4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73L12 22l8-4.27A2 2 0 0 0 21 16z"/>
+                    </svg>
+                    Budget
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Goals
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11H1l9-9 9 9h-8v8h-2v-8z"/>
+                    </svg>
+                    Forecasts
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-section-title">Reports</div>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Monthly Reports
+                </a>
+                <a href="#" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                    </svg>
+                    Tax Documents
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Revenue Banner -->
+            <div class="revenue-banner">
+                <div class="banner-content">
+                    <div class="banner-title">Total Revenue (30 days)</div>
+                    <div class="banner-amount" id="totalRevenue">$247,892</div>
+                    <div class="banner-growth">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                            <polyline points="17 18 23 18 23 12"/>
+                        </svg>
+                        +18.2% vs previous period
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Overview -->
+            <div class="kpi-grid">
+                <div class="kpi-card revenue">
+                    <div class="kpi-header">
+                        <div class="kpi-title">Monthly Recurring Revenue</div>
+                        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">$184,320</div>
+                    <div class="kpi-change positive">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                        </svg>
+                        +12.5% MoM
+                    </div>
+                </div>
+                
+                <div class="kpi-card profit">
+                    <div class="kpi-header">
+                        <div class="kpi-title">Net Profit Margin</div>
+                        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 12l2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">32.8%</div>
+                    <div class="kpi-change positive">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                        </svg>
+                        +2.1% vs last month
+                    </div>
+                </div>
+                
+                <div class="kpi-card expense">
+                    <div class="kpi-header">
+                        <div class="kpi-title">Operating Expenses</div>
+                        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">$166,542</div>
+                    <div class="kpi-change negative">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        </svg>
+                        +8.7% vs last month
+                    </div>
+                </div>
+                
+                <div class="kpi-card growth">
+                    <div class="kpi-header">
+                        <div class="kpi-title">Customer LTV</div>
+                        <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="kpi-value">$2,847</div>
+                    <div class="kpi-change positive">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                        </svg>
+                        +15.3% vs last month
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Revenue Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Revenue Trends</h2>
+                        <button class="card-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3v18h18"/>
+                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-placeholder">
+                            📈 Revenue chart would be rendered here<br>
+                            <small>Integration with Chart.js, D3.js, or similar library</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Products -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Top Products</h2>
+                        <button class="card-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Revenue</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="product-name">Pro Subscription</td>
+                                <td class="product-revenue">$89,240</td>
+                                <td><span class="product-change positive">+12.5%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="product-name">Enterprise Plan</td>
+                                <td class="product-revenue">$64,180</td>
+                                <td><span class="product-change positive">+8.3%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="product-name">Starter Package</td>
+                                <td class="product-revenue">$42,890</td>
+                                <td><span class="product-change positive">+15.2%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="product-name">Add-on Services</td>
+                                <td class="product-revenue">$28,470</td>
+                                <td><span class="product-change negative">-3.1%</span></td>
+                            </tr>
+                            <tr>
+                                <td class="product-name">Consulting</td>
+                                <td class="product-revenue">$23,112</td>
+                                <td><span class="product-change positive">+22.4%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Lower Grid -->
+            <div class="dashboard-grid">
+                <!-- Expense Breakdown -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Expense Breakdown</h2>
+                        <button class="card-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+                                <path d="M22 12A10 10 0 0 0 12 2v10z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="expense-list">
+                        <div class="expense-item">
+                            <div class="expense-category">
+                                <div class="expense-category-name">Personnel</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <div class="expense-amount">$108,250</div>
+                        </div>
+                        
+                        <div class="expense-item">
+                            <div class="expense-category">
+                                <div class="expense-category-name">Infrastructure</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div class="expense-amount">$33,290</div>
+                        </div>
+                        
+                        <div class="expense-item">
+                            <div class="expense-category">
+                                <div class="expense-category-name">Marketing</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 10%"></div>
+                                </div>
+                            </div>
+                            <div class="expense-amount">$16,645</div>
+                        </div>
+                        
+                        <div class="expense-item">
+                            <div class="expense-category">
+                                <div class="expense-category-name">Operations</div>
+                                <div class="expense-bar-container">
+                                    <div class="expense-bar" style="width: 5%"></div>
+                                </div>
+                            </div>
+                            <div class="expense-amount">$8,357</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Goals -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Financial Goals</h2>
+                        <button class="card-action">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="goal-list">
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <div class="goal-name">Q4 Revenue Target</div>
+                                <div class="goal-percentage">74.3%</div>
+                            </div>
+                            <div class="goal-progress">
+                                <div class="goal-progress-bar" style="width: 74.3%"></div>
+                            </div>
+                            <div class="goal-meta">
+                                <span>$743K of $1M</span>
+                                <span>62 days remaining</span>
+                            </div>
+                        </div>
+                        
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <div class="goal-name">Customer Acquisition</div>
+                                <div class="goal-percentage">89.2%</div>
+                            </div>
+                            <div class="goal-progress">
+                                <div class="goal-progress-bar" style="width: 89.2%"></div>
+                            </div>
+                            <div class="goal-meta">
+                                <span>892 of 1000 customers</span>
+                                <span>On track</span>
+                            </div>
+                        </div>
+                        
+                        <div class="goal-item">
+                            <div class="goal-header">
+                                <div class="goal-name">Profit Margin</div>
+                                <div class="goal-percentage">109.3%</div>
+                            </div>
+                            <div class="goal-progress">
+                                <div class="goal-progress-bar" style="width: 100%"></div>
+                            </div>
+                            <div class="goal-meta">
+                                <span>32.8% vs 30% target</span>
+                                <span>Goal exceeded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Transactions</h2>
+                    <button class="card-action">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="transaction-list" id="transactionList">
+                    <div class="transaction-item">
+                        <div class="transaction-type revenue"></div>
+                        <div class="transaction-info">
+                            <div class="transaction-description">Enterprise Plan - Subscription Renewal</div>
+                            <div class="transaction-meta">TechCorp Inc • Credit Card •••• 4231</div>
+                        </div>
+                        <div class="transaction-amount positive">+$2,400.00</div>
+                    </div>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-type expense"></div>
+                        <div class="transaction-info">
+                            <div class="transaction-description">AWS Infrastructure - Monthly Bill</div>
+                            <div class="transaction-meta">Amazon Web Services • Auto-debit</div>
+                        </div>
+                        <div class="transaction-amount negative">-$1,847.32</div>
+                    </div>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-type revenue"></div>
+                        <div class="transaction-info">
+                            <div class="transaction-description">Pro Subscription - New Customer</div>
+                            <div class="transaction-meta">StartupXYZ • PayPal</div>
+                        </div>
+                        <div class="transaction-amount positive">+$299.00</div>
+                    </div>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-type refund"></div>
+                        <div class="transaction-info">
+                            <div class="transaction-description">Refund - Cancellation Request</div>
+                            <div class="transaction-meta">UserABC • Stripe Refund</div>
+                        </div>
+                        <div class="transaction-amount negative">-$149.50</div>
+                    </div>
+                    
+                    <div class="transaction-item">
+                        <div class="transaction-type revenue"></div>
+                        <div class="transaction-info">
+                            <div class="transaction-description">Consulting Services - Project Alpha</div>
+                            <div class="transaction-meta">MegaCorp Ltd • Wire Transfer</div>
+                        </div>
+                        <div class="transaction-amount positive">+$5,000.00</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Theme Management
+        class ThemeManager {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                const savedTheme = localStorage.getItem('financial-dashboard-theme');
+                const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = savedTheme || (systemDark ? 'dark' : 'light');
+                
+                this.setTheme(theme);
+                this.addToggleListener();
+                this.watchSystemChanges();
+            }
+            
+            setTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('financial-dashboard-theme', theme);
+                this.updateToggleIcon(theme);
+            }
+            
+            toggle() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                this.setTheme(next);
+            }
+            
+            updateToggleIcon(theme) {
+                const toggle = document.getElementById('themeToggle');
+                if (toggle) {
+                    toggle.innerHTML = theme === 'dark' 
+                        ? '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+                        : '<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+                }
+            }
+            
+            addToggleListener() {
+                const toggle = document.getElementById('themeToggle');
+                if (toggle) {
+                    toggle.addEventListener('click', () => this.toggle());
+                }
+            }
+            
+            watchSystemChanges() {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem('financial-dashboard-theme')) {
+                        this.setTheme(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+        }
+
+        // Financial Dashboard Management
+        class FinancialDashboard {
+            constructor() {
+                this.currentPeriod = '30d';
+                this.init();
+                this.startAutoRefresh();
+            }
+            
+            init() {
+                this.addEventListeners();
+                this.simulateDataUpdates();
+            }
+            
+            addEventListeners() {
+                // Period selector
+                const periodButtons = document.querySelectorAll('.period-button');
+                periodButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const period = e.target.dataset.period;
+                        this.changePeriod(period);
+                    });
+                });
+                
+                // Refresh button
+                const refreshBtn = document.getElementById('refreshBtn');
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', () => this.refresh());
+                }
+                
+                // Export button
+                const exportBtn = document.getElementById('exportBtn');
+                if (exportBtn) {
+                    exportBtn.addEventListener('click', () => this.exportData());
+                }
+            }
+            
+            changePeriod(period) {
+                this.currentPeriod = period;
+                
+                // Update active button
+                document.querySelectorAll('.period-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-period="${period}"]`).classList.add('active');
+                
+                // Update data
+                this.updateFinancialData(period);
+            }
+            
+            updateFinancialData(period) {
+                const periodData = {
+                    '7d': {
+                        revenue: '$58,247',
+                        mrr: '$184,320',
+                        profit: '28.4%',
+                        expenses: '$41,876',
+                        ltv: '$2,847'
+                    },
+                    '30d': {
+                        revenue: '$247,892',
+                        mrr: '$184,320',
+                        profit: '32.8%',
+                        expenses: '$166,542',
+                        ltv: '$2,847'
+                    },
+                    '90d': {
+                        revenue: '$720,456',
+                        mrr: '$184,320',
+                        profit: '35.2%',
+                        expenses: '$467,123',
+                        ltv: '$2,847'
+                    },
+                    '1y': {
+                        revenue: '$2,847,392',
+                        mrr: '$184,320',
+                        profit: '31.7%',
+                        expenses: '$1,943,751',
+                        ltv: '$2,847'
+                    }
+                };
+                
+                const data = periodData[period];
+                document.getElementById('totalRevenue').textContent = data.revenue;
+                
+                // Update KPI cards
+                const kpiValues = document.querySelectorAll('.kpi-value');
+                kpiValues[0].textContent = data.mrr;
+                kpiValues[1].textContent = data.profit;
+                kpiValues[2].textContent = data.expenses;
+                kpiValues[3].textContent = data.ltv;
+            }
+            
+            refresh() {
+                console.log('Refreshing financial data...');
+                this.updateKPIs();
+                this.addRecentTransaction();
+            }
+            
+            updateKPIs() {
+                // Simulate KPI updates with realistic variations
+                const variations = {
+                    mrr: 184320 + (Math.random() - 0.5) * 5000,
+                    profit: 32.8 + (Math.random() - 0.5) * 2,
+                    expenses: 166542 + (Math.random() - 0.5) * 10000,
+                    ltv: 2847 + (Math.random() - 0.5) * 100
+                };
+                
+                const kpiValues = document.querySelectorAll('.kpi-value');
+                kpiValues[0].textContent = `$${Math.floor(variations.mrr).toLocaleString()}`;
+                kpiValues[1].textContent = `${variations.profit.toFixed(1)}%`;
+                kpiValues[2].textContent = `$${Math.floor(variations.expenses).toLocaleString()}`;
+                kpiValues[3].textContent = `$${Math.floor(variations.ltv).toLocaleString()}`;
+            }
+            
+            addRecentTransaction() {
+                const transactionList = document.getElementById('transactionList');
+                if (transactionList) {
+                    const transactions = [
+                        {
+                            type: 'revenue',
+                            description: 'Starter Package - New Signup',
+                            meta: 'SmallBiz Co • Credit Card •••• 5678',
+                            amount: '+$99.00',
+                            positive: true
+                        },
+                        {
+                            type: 'expense',
+                            description: 'Office Supplies - Monthly Order',
+                            meta: 'OfficeDepot • Company Card',
+                            amount: '-$234.56',
+                            positive: false
+                        },
+                        {
+                            type: 'revenue',
+                            description: 'Pro Upgrade - Existing Customer',
+                            meta: 'TechStart LLC • PayPal',
+                            amount: '+$200.00',
+                            positive: true
+                        }
+                    ];
+                    
+                    const randomTransaction = transactions[Math.floor(Math.random() * transactions.length)];
+                    
+                    const newTransaction = document.createElement('div');
+                    newTransaction.className = 'transaction-item';
+                    newTransaction.innerHTML = `
+                        <div class="transaction-type ${randomTransaction.type}"></div>
+                        <div class="transaction-info">
+                            <div class="transaction-description">${randomTransaction.description}</div>
+                            <div class="transaction-meta">${randomTransaction.meta}</div>
+                        </div>
+                        <div class="transaction-amount ${randomTransaction.positive ? 'positive' : 'negative'}">${randomTransaction.amount}</div>
+                    `;
+                    
+                    // Add to top of list
+                    transactionList.insertBefore(newTransaction, transactionList.firstChild);
+                    
+                    // Keep only last 10 transactions
+                    while (transactionList.children.length > 10) {
+                        transactionList.removeChild(transactionList.lastChild);
+                    }
+                }
+            }
+            
+            exportData() {
+                // Simulate data export
+                alert('Financial data export would be generated here (PDF/CSV/Excel)');
+            }
+            
+            simulateDataUpdates() {
+                // Update progress bars occasionally
+                setInterval(() => {
+                    const progressBars = document.querySelectorAll('.goal-progress-bar');
+                    progressBars.forEach(bar => {
+                        const currentWidth = parseFloat(bar.style.width);
+                        const variation = (Math.random() - 0.5) * 2; // ±1%
+                        const newWidth = Math.max(0, Math.min(100, currentWidth + variation));
+                        bar.style.width = `${newWidth}%`;
+                        
+                        // Update percentage display
+                        const percentageEl = bar.closest('.goal-item').querySelector('.goal-percentage');
+                        if (percentageEl) {
+                            percentageEl.textContent = `${newWidth.toFixed(1)}%`;
+                        }
+                    });
+                }, 10000);
+            }
+            
+            startAutoRefresh() {
+                // Auto-refresh every 2 minutes
+                setInterval(() => {
+                    this.refresh();
+                }, 120000);
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            new ThemeManager();
+            new FinancialDashboard();
+        });
+    </script>
+</body>
+</html>

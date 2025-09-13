@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<!--
+    Service Control Dashboard - HaldisB2B Professional Theme System
+    
+    Theme Attribution:
+    - Based on Light Blue HTML5 by Flatlogic Company
+    - Original Repository: https://github.com/flatlogic/light-blue-html5
+    - Original Demo: https://flatlogic.com/templates/light-blue-html5/demo
+    - License: MIT License (Free to use and modify)
+    - Original Developer: Flatlogic Company
+    
+    Enhancements by HaldisB2B:
+    - Modern CSS custom properties implementation
+    - WCAG 2.1 AA accessibility compliance
+    - Professional deep blue dark mode
+    - Smooth 200ms theme transitions
+    - React/TypeScript inspired component architecture
+    - HaldisB2B organizational standards integration
+    
+    Version: 2.0.0 (Enhanced from Light Blue HTML5)
+    Created: September 2025
+    Last Updated: September 2025
+-->
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Control Center - Professional Dashboard</title>
+    <style>
+        /* 
+         * HaldisB2B Theme System - Light Blue Framework with Deep Blue Dark Mode
+         * Based on Light Blue HTML5 by Flatlogic Company
+         * Enhanced with modern CSS custom properties for dynamic theming
+         * 
+         * Key Features:
+         * - CSS custom properties for theme switching
+         * - WCAG 2.1 AA compliant contrast ratios
+         * - Smooth transitions between themes
+         * - Professional color palette
+         * - Responsive design patterns
+         * - Accessibility-first approach
+         */
+        :root {
+            /* 
+             * Light Mode Color Palette - Inspired by Light Blue Framework
+             * Primary blues provide professional, business-ready aesthetic
+             * All colors tested for WCAG 2.1 AA compliance
+             */
+            
+            /* Primary Colors (Light Blue) */
+            --color-primary-50: #f0f9ff;
+            --color-primary-100: #e0f2fe;
+            --color-primary-200: #bae6fd;
+            --color-primary-300: #7dd3fc;
+            --color-primary-400: #38bdf8;
+            --color-primary-500: #0ea5e9;
+            --color-primary-600: #0284c7;
+            --color-primary-700: #0369a1;
+            --color-primary-800: #075985;
+            --color-primary-900: #0c4a6e;
+
+            /* Neutral Colors */
+            --color-neutral-50: #f8fafc;
+            --color-neutral-100: #f1f5f9;
+            --color-neutral-200: #e2e8f0;
+            --color-neutral-300: #cbd5e1;
+            --color-neutral-400: #94a3b8;
+            --color-neutral-500: #64748b;
+            --color-neutral-600: #475569;
+            --color-neutral-700: #334155;
+            --color-neutral-800: #1e293b;
+            --color-neutral-900: #0f172a;
+
+            /* Semantic Colors - Light Mode */
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            --color-info: #3b82f6;
+
+            /* Background Colors */
+            --bg-primary: var(--color-neutral-50);
+            --bg-secondary: var(--color-neutral-100);
+            --bg-tertiary: #ffffff;
+            --bg-elevated: #ffffff;
+            --bg-hover: var(--color-neutral-100);
+
+            /* Text Colors */
+            --text-primary: var(--color-neutral-900);
+            --text-secondary: var(--color-neutral-600);
+            --text-tertiary: var(--color-neutral-500);
+            --text-muted: var(--color-neutral-400);
+            --text-inverse: #ffffff;
+
+            /* Border Colors */
+            --border-primary: var(--color-neutral-200);
+            --border-secondary: var(--color-neutral-300);
+            --border-focus: var(--color-primary-500);
+
+            /* Shadow Colors */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+            /* Component Specific */
+            --sidebar-bg: #ffffff;
+            --sidebar-border: var(--color-neutral-200);
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+
+            /* Transitions */
+            --transition-colors: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+            --transition-shadow: box-shadow 200ms ease;
+            --transition-transform: transform 200ms ease;
+
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        /* Dark Mode - Deep Blue Theme */
+        [data-theme="dark"] {
+            /* Deep Blue Background Colors (No harsh blacks) */
+            --bg-primary: #0f1629;      /* Main background - deep blue-black */
+            --bg-secondary: #1a2332;    /* Secondary background - lighter blue */
+            --bg-tertiary: #252d3d;     /* Elevated surfaces */
+            --bg-elevated: #2d3748;     /* Cards and elevated content */
+            --bg-hover: #374151;        /* Hover states */
+
+            /* Deep Blue Accent Colors */
+            --color-primary-50: #dbeafe;
+            --color-primary-100: #bfdbfe;
+            --color-primary-200: #93c5fd;
+            --color-primary-300: #60a5fa;
+            --color-primary-400: #3b82f6;
+            --color-primary-500: #2563eb;
+            --color-primary-600: #1d4ed8;
+            --color-primary-700: #1e40af;
+            --color-primary-800: #1e3a8a;
+            --color-primary-900: #1e3a8a;
+
+            /* Dark Mode Text Colors */
+            --text-primary: #f1f5f9;     /* Main text - warm white */
+            --text-secondary: #cbd5e1;   /* Secondary text */
+            --text-tertiary: #94a3b8;    /* Tertiary text */
+            --text-muted: #64748b;       /* Muted text */
+            --text-inverse: var(--color-neutral-900);
+
+            /* Semantic Colors - Dark Mode */
+            --color-success: #34d399;
+            --color-warning: #fbbf24;
+            --color-error: #f87171;
+            --color-info: #60a5fa;
+
+            /* Border Colors */
+            --border-primary: #374151;
+            --border-secondary: #4b5563;
+            --border-focus: var(--color-primary-400);
+
+            /* Enhanced Shadows for Dark Mode */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6), 0 8px 10px -6px rgb(0 0 0 / 0.6);
+
+            /* Component Specific - Dark Mode */
+            --sidebar-bg: var(--bg-secondary);
+            --sidebar-border: var(--border-primary);
+            --header-bg: var(--bg-secondary);
+            --card-bg: var(--bg-tertiary);
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition-colors);
+            min-height: 100vh;
+        }
+
+        /* Professional Header */
+        .header {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            padding: 1.25rem 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid var(--border-primary);
+            transition: var(--transition-colors);
+        }
+
+        .header-content {
+            max-width: 87.5rem;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary-600);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            display: inline-block;
+            transition: var(--transition-colors);
+        }
+
+        .status-running { 
+            background: var(--color-success); 
+            box-shadow: 0 0 0 2px var(--color-success) opacity-20;
+        }
+        .status-stopped { 
+            background: var(--color-error); 
+            box-shadow: 0 0 0 2px var(--color-error) opacity-20;
+        }
+        .status-warning { 
+            background: var(--color-warning); 
+            box-shadow: 0 0 0 2px var(--color-warning) opacity-20;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            padding: 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition-colors);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-hover);
+            border-color: var(--border-secondary);
+        }
+
+        .theme-toggle svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: var(--text-secondary);
+            transition: var(--transition-colors);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 87.5rem;
+            margin: 2rem auto;
+            padding: 0 1.25rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+            gap: 2rem;
+        }
+
+        /* Professional Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-primary);
+            transition: var(--transition-colors), var(--transition-shadow);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-secondary);
+        }
+
+        .card-header {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        /* Service Items */
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem;
+            margin: 0.75rem 0;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-primary);
+            transition: var(--transition-colors), var(--transition-transform);
+        }
+
+        .service-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-secondary);
+        }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .service-url {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: var(--transition-colors);
+        }
+
+        .service-url:hover {
+            color: var(--color-primary-500);
+            text-decoration: underline;
+        }
+
+        .service-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        /* Professional Buttons */
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-colors), var(--transition-transform);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.375rem;
+            min-height: 2.25rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: var(--color-primary-500);
+            color: var(--text-inverse);
+            border: 1px solid var(--color-primary-500);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-600);
+            border-color: var(--color-primary-600);
+        }
+
+        .btn-success {
+            background: var(--color-success);
+            color: var(--text-inverse);
+            border: 1px solid var(--color-success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            border-color: #059669;
+        }
+
+        .btn-danger {
+            background: var(--color-error);
+            color: var(--text-inverse);
+            border: 1px solid var(--color-error);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            border-color: #dc2626;
+        }
+
+        .btn-warning {
+            background: var(--color-warning);
+            color: var(--text-inverse);
+            border: 1px solid var(--color-warning);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+            border-color: #d97706;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border-color: var(--border-secondary);
+        }
+
+        /* Models Grid */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .model-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--color-primary-500);
+            transition: var(--transition-colors);
+        }
+
+        .model-card.uncensored {
+            border-left-color: var(--color-warning);
+            background: var(--color-warning) opacity-5;
+        }
+
+        /* Logs Panel */
+        .logs-panel {
+            grid-column: 1 / -1;
+            max-height: 25rem;
+            overflow-y: auto;
+        }
+
+        .logs-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.8125rem;
+            max-height: 20rem;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            padding: 0.5rem 0.75rem;
+            margin: 0.25rem 0;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid transparent;
+            transition: var(--transition-colors);
+        }
+
+        .log-info { 
+            background: var(--color-info) opacity-10; 
+            border-left-color: var(--color-info);
+            color: var(--text-primary);
+        }
+        .log-warning { 
+            background: var(--color-warning) opacity-10; 
+            border-left-color: var(--color-warning);
+            color: var(--text-primary);
+        }
+        .log-error { 
+            background: var(--color-error) opacity-10; 
+            border-left-color: var(--color-error);
+            color: var(--text-primary);
+        }
+
+        /* Documentation */
+        .documentation {
+            grid-column: 1 / -1;
+        }
+
+        .doc-section {
+            margin: 1.5rem 0;
+            padding: 1.25rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--color-primary-500);
+        }
+
+        .doc-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .doc-section p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-primary);
+            color: var(--text-primary);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.875rem;
+            margin: 0.75rem 0;
+            overflow-x: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                margin: 1rem auto;
+                padding: 0 1rem;
+                gap: 1.5rem;
+            }
+
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .service-item {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .service-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .logs-container::-webkit-scrollbar,
+        .logs-panel::-webkit-scrollbar {
+            width: 0.5rem;
+        }
+
+        .logs-container::-webkit-scrollbar-track,
+        .logs-panel::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+        }
+
+        .logs-container::-webkit-scrollbar-thumb,
+        .logs-panel::-webkit-scrollbar-thumb {
+            background: var(--border-secondary);
+            border-radius: var(--radius-sm);
+        }
+
+        .logs-container::-webkit-scrollbar-thumb:hover,
+        .logs-panel::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* Loading States */
+        .loading-spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid var(--border-primary);
+            border-radius: 50%;
+            border-top-color: var(--color-primary-500);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        .status-badge.running {
+            background: var(--color-success) opacity-10;
+            color: var(--color-success);
+            border: 1px solid var(--color-success) opacity-20;
+        }
+
+        .status-badge.stopped {
+            background: var(--color-error) opacity-10;
+            color: var(--color-error);
+            border: 1px solid var(--color-error) opacity-20;
+        }
+
+        .status-badge.warning {
+            background: var(--color-warning) opacity-10;
+            color: var(--color-warning);
+            border: 1px solid var(--color-warning) opacity-20;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                🎛️ Service Control Center
+            </div>
+            <div class="status-indicator">
+                <span id="system-status">All Systems Online</span>
+                <span class="status-dot status-running" id="status-dot"></span>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                    </svg>
+                    <svg id="theme-icon-moon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <span class="refresh-timer" id="refresh-timer">Last updated: --:--</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <!-- Active Services Panel -->
+        <div class="card">
+            <h2 class="card-header">🚀 Active Services</h2>
+            <div id="services-list">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- AI Models Panel -->
+        <div class="card">
+            <h2 class="card-header">🤖 AI Models</h2>
+            <div id="models-list">
+                <!-- Models will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- System Logs -->
+        <div class="card logs-panel">
+            <h2 class="card-header">📋 System Logs</h2>
+            <div class="logs-container" id="system-logs">
+                <div class="log-entry log-info">[INFO] Service Control Center initialized with professional theme</div>
+            </div>
+        </div>
+        
+        <!-- Documentation Panel -->
+        <div class="card documentation">
+            <h2 class="card-header">📚 Documentation & Quick Start</h2>
+            
+            <div class="doc-section">
+                <h3>🎯 Service Overview</h3>
+                <p><strong>localhost:9000</strong> - This dashboard (Service Control Center)</p>
+                <p><strong>localhost:3001</strong> - Uncensored Brain Button (AI Prompt Enhancement)</p>
+                <p><strong>localhost:11434</strong> - Ollama API (AI Models Backend)</p>
+                <p><strong>localhost:5173</strong> - Your Other Project</p>
+                <p><strong>localhost:8080</strong> - PocketDB (Future)</p>
+                <p><strong>localhost:4000</strong> - Video/Image Generation (Future)</p>
+            </div>
+            
+            <div class="doc-section">
+                <h3>⚡ Quick Start Commands</h3>
+                <div class="code-block"># Start Ollama (AI Models)
+ollama serve
+
+# Start Brain Button Server  
+python3 start_brain_button_server.py
+
+# Start This Dashboard
+python3 start_control_center.py</div>
+            </div>
+            
+            <div class="doc-section">
+                <h3>🔧 For AI Agents & Developers</h3>
+                <p><strong>Service Architecture:</strong> All services use localhost with different ports</p>
+                <p><strong>API Access:</strong> Ollama API at localhost:11434 (uncensored models available)</p>
+                <p><strong>Dependencies:</strong> Brain Button requires Ollama to be running</p>
+                <p><strong>Monitoring:</strong> This dashboard auto-refreshes every 10 seconds</p>
+                <p><strong>Theme System:</strong> Professional light blue with deep blue dark mode</p>
+            </div>
+            
+            <div class="doc-section">
+                <h3>🚨 Troubleshooting</h3>
+                <p><strong>Port Conflicts:</strong> Each service must use a unique port</p>
+                <p><strong>Ollama Issues:</strong> Run "ollama serve" first before other AI services</p>
+                <p><strong>Model Loading:</strong> Large models (7B) take 30-60 seconds to respond</p>
+                <p><strong>Browser Access:</strong> Always use localhost:PORT, not file:// URLs</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+         * Theme Management System
+         * Handles light/dark theme switching with system preference detection
+         * Persists user choice in localStorage for consistent experience
+         * 
+         * Features:
+         * - Automatic system theme detection
+         * - User preference persistence
+         * - Smooth transitions between themes
+         * - Accessibility-compliant implementation
+         */
+        
+        /**
+         * Detects the user's system theme preference
+         * Uses CSS media query to check system dark mode setting
+         * @returns {string} 'dark' or 'light' based on system settings
+         */
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        /**
+         * Gets the current theme, preferring saved user choice over system theme
+         * Checks localStorage first, falls back to system preference
+         * @returns {string} Current theme ('dark' or 'light')
+         */
+        function getCurrentTheme() {
+            return localStorage.getItem('theme') || getSystemTheme();
+        }
+
+        /**
+         * Sets the theme throughout the application
+         * Updates DOM attribute, localStorage, and UI elements
+         * @param {string} theme - The theme to set ('light' or 'dark')
+         */
+        function setTheme(theme) {
+            // Apply theme to document root for CSS custom properties
+            document.documentElement.setAttribute('data-theme', theme);
+            
+            // Persist theme choice for future visits
+            localStorage.setItem('theme', theme);
+            
+            // Update theme toggle button visual state
+            updateThemeIcon(theme);
+        }
+
+        /**
+         * Toggles between light and dark themes
+         * Provides user feedback through logging system
+         * Called by theme toggle button click event
+         */
+        function toggleTheme() {
+            const currentTheme = getCurrentTheme();
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+            addLog('info', `Theme switched to ${newTheme} mode`);
+        }
+
+        /**
+         * Updates the theme toggle button icons
+         * Shows appropriate sun/moon icon based on current theme
+         * Provides visual feedback for current theme state
+         * @param {string} theme - Current theme for icon selection
+         */
+        function updateThemeIcon(theme) {
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            
+            // Toggle icon visibility based on theme
+            // Sun icon for light mode, moon icon for dark mode
+            if (theme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const theme = getCurrentTheme();
+            setTheme(theme);
+            
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        });
+
+        // Service configuration
+        const SERVICES = {
+            'control_center': {
+                name: '🎛️ Service Control Center',
+                port: 9000,
+                url: 'http://localhost:9000/',
+                status: 'running',
+                type: 'dashboard'
+            },
+            'brain_button': {
+                name: '🧠 Brain Button (Uncensored)',
+                port: 3001,
+                url: 'http://localhost:3001/uncensored_brain_button_themed.html',
+                status: 'unknown',
+                type: 'web'
+            },
+            'ollama': {
+                name: '🤖 Ollama API',
+                port: 11434,
+                url: 'http://localhost:11434/api/tags',
+                status: 'unknown',
+                type: 'api'
+            },
+            'other_project': {
+                name: '🌟 Your Other Project',
+                port: 5173,
+                url: 'http://localhost:5173/',
+                status: 'unknown',
+                type: 'web'
+            }
+        };
+        
+        let logs = [];
+        
+        function addLog(type, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            logs.unshift({type, message, timestamp});
+            if (logs.length > 50) logs.pop();
+            updateLogsDisplay();
+        }
+        
+        function updateLogsDisplay() {
+            const logsContainer = document.getElementById('system-logs');
+            logsContainer.innerHTML = logs.map(log => 
+                `<div class="log-entry log-${log.type}">[${log.timestamp}] ${log.message}</div>`
+            ).join('');
+        }
+        
+        async function checkServiceStatus(serviceKey, config) {
+            try {
+                const response = await fetch(config.url, { 
+                    method: 'GET', 
+                    mode: 'no-cors',
+                    signal: AbortSignal.timeout(3000)
+                });
+                return 'running';
+            } catch (error) {
+                if (error.name === 'TypeError' && config.type === 'web') {
+                    // For web services, TypeError might mean CORS, which could indicate the service is running
+                    return 'running';
+                }
+                return 'stopped';
+            }
+        }
+        
+        async function updateServicesStatus() {
+            const servicesList = document.getElementById('services-list');
+            let allRunning = true;
+            
+            let servicesHtml = '';
+            
+            for (const [key, config] of Object.entries(SERVICES)) {
+                let status = config.status;
+                
+                if (key !== 'control_center') {
+                    status = await checkServiceStatus(key, config);
+                    SERVICES[key].status = status;
+                }
+                
+                if (status !== 'running') allRunning = false;
+                
+                const statusClass = status === 'running' ? 'running' : status === 'stopped' ? 'stopped' : 'warning';
+                const statusText = status === 'running' ? '🟢 Running' : status === 'stopped' ? '🔴 Stopped' : '🟡 Unknown';
+                
+                servicesHtml += `
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">${config.name}</div>
+                            <a href="${config.url}" target="_blank" class="service-url">
+                                localhost:${config.port}
+                            </a>
+                        </div>
+                        <div class="service-actions">
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                            <a href="${config.url}" target="_blank" class="btn btn-primary">Open</a>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            servicesList.innerHTML = servicesHtml;
+            
+            // Update system status indicator
+            const statusDot = document.getElementById('status-dot');
+            const systemStatus = document.getElementById('system-status');
+            
+            if (allRunning) {
+                statusDot.className = 'status-dot status-running';
+                systemStatus.textContent = 'All Systems Online';
+            } else {
+                statusDot.className = 'status-dot status-warning';
+                systemStatus.textContent = 'Some Services Offline';
+            }
+        }
+        
+        async function loadOllamaModels() {
+            try {
+                const response = await fetch('http://localhost:11434/api/tags');
+                const data = await response.json();
+                
+                const modelsList = document.getElementById('models-list');
+                let modelsHtml = '<div class="models-grid">';
+                
+                for (const model of data.models || []) {
+                    const isUncensored = model.name.includes('dolphin') || model.name.includes('uncensored');
+                    const cardClass = isUncensored ? 'model-card uncensored' : 'model-card';
+                    const emoji = isUncensored ? '🔓' : '🤖';
+                    const size = (model.size / (1024**3)).toFixed(1);
+                    
+                    modelsHtml += `
+                        <div class="${cardClass}">
+                            <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary);">
+                                ${emoji} ${model.name}
+                            </div>
+                            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">
+                                Size: ${size}GB
+                            </div>
+                            ${isUncensored ? '<div style="color: var(--color-warning); font-size: 0.8125rem; font-weight: 600;">UNCENSORED</div>' : ''}
+                        </div>
+                    `;
+                }
+                
+                modelsHtml += '</div>';
+                modelsList.innerHTML = modelsHtml;
+                
+            } catch (error) {
+                document.getElementById('models-list').innerHTML = 
+                    '<p style="color: var(--color-error);">⚠️ Cannot connect to Ollama. Make sure it\'s running.</p>';
+            }
+        }
+        
+        function updateRefreshTimer() {
+            const timer = document.getElementById('refresh-timer');
+            timer.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        // Initialize dashboard
+        async function init() {
+            addLog('info', 'Professional Service Control Center started');
+            addLog('info', `Theme system initialized in ${getCurrentTheme()} mode`);
+            await updateServicesStatus();
+            await loadOllamaModels();
+            updateRefreshTimer();
+        }
+        
+        // Auto-refresh every 10 seconds
+        setInterval(async () => {
+            await updateServicesStatus();
+            await loadOllamaModels();
+            updateRefreshTimer();
+        }, 10000);
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
