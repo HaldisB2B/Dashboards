@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Light Blue HTML5 Dashboard - Professional Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Line Awesome -->
+    <link href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --secondary-color: #1a73e8;
+            --success-color: #34a853;
+            --danger-color: #ea4335;
+            --warning-color: #fbbc05;
+            --dark-color: #1e293b;
+            --light-gray: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-color: #64748b;
+            --sidebar-width: 260px;
+            --topbar-height: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation */
+        .page-controls {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            height: var(--topbar-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--dark-color) !important;
+            text-decoration: none;
+        }
+
+        .navbar-brand b {
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: var(--topbar-height);
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--topbar-height));
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            z-index: 999;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav .active a {
+            color: white;
+            background: rgba(66, 133, 244, 0.2);
+            border-left-color: var(--primary-color);
+        }
+
+        .sidebar-nav .icon {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        .sidebar-nav-title {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 30px 20px 15px 20px;
+        }
+
+        /* Main Content */
+        .content-wrap {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
+            min-height: calc(100vh - var(--topbar-height));
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .breadcrumb-item.active {
+            color: white;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .page-title small {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Widgets */
+        .widget {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .widget.bg-transparent {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .widget header {
+            padding: 20px 25px 0 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .widget h5, .widget h6 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .widget.bg-transparent h5,
+        .widget.bg-transparent h6 {
+            color: white;
+        }
+
+        .widget-body {
+            padding: 25px;
+        }
+
+        .widget-controls {
+            float: right;
+        }
+
+        .widget-controls a {
+            color: var(--text-color);
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-item .name {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+
+        .stat-item .value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+        }
+
+        /* Progress Bars */
+        .progress {
+            height: 4px;
+            border-radius: 2px;
+            background: var(--light-gray);
+        }
+
+        .progress-bar {
+            border-radius: 2px;
+        }
+
+        .bg-primary { background-color: var(--primary-color) !important; }
+        .bg-success { background-color: var(--success-color) !important; }
+        .bg-danger { background-color: var(--danger-color) !important; }
+        .bg-warning { background-color: var(--warning-color) !important; }
+
+        /* Map Section */
+        .mapael {
+            height: 400px;
+            position: relative;
+            background: linear-gradient(135deg, rgba(66, 133, 244, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats h6 {
+            color: white;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stats .h3 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: white;
+            margin: 10px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .content-wrap {
+                margin-left: 0;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+
+        /* Circle elements */
+        .circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+        }
+
+        .square {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+        }
+
+        .square-lg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .bg-default {
+            background-color: var(--text-color);
+        }
+
+        .text-white {
+            color: white !important;
+        }
+
+        .fw-semi-bold {
+            font-weight: 600;
+        }
+
+        .fw-thin {
+            font-weight: 300;
+        }
+
+        .no-margin {
+            margin: 0;
+        }
+
+        .mt { margin-top: 1rem; }
+        .mt-sm { margin-top: 0.5rem; }
+        .mb { margin-bottom: 1rem; }
+        .mr-2 { margin-right: 0.5rem; }
+
+        .deemphasize {
+            color: var(--text-color);
+        }
+
+        /* Animation for progress bars */
+        .js-progress-animate {
+            animation: progressAnimation 2s ease-in-out;
+        }
+
+        @keyframes progressAnimation {
+            from { width: 0; }
+        }
+
+        /* Footer */
+        .content-footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+
+        .content-footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <nav class="page-controls navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand d-none d-md-block" href="#">
+                <span class="fw-thin">Light</span> <b>Blue</b>
+            </a>
+            
+            <div class="navbar-nav ms-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                        <img src="https://via.placeholder.com/32x32/4285F4/white?text=A" class="rounded-circle me-2" width="32" height="32">
+                        admin@flatlogic.com
+                        <span class="badge bg-primary ms-2">15</span>
+                    </a>
+                </div>
+                
+                <div class="nav-item d-md-none">
+                    <a class="nav-link" data-bs-toggle="offcanvas" href="#sidebar" role="button">
+                        <i class="la la-bars"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar offcanvas-md offcanvas-start">
+        <div class="js-sidebar-content">
+            <header class="logo d-none d-md-block text-center py-4">
+                <a href="#" class="text-white text-decoration-none">
+                    <span class="fw-thin">Light</span> <b>Blue</b>
+                </a>
+            </header>
+
+            <ul class="sidebar-nav">
+                <li class="active">
+                    <a href="#">
+                        <span class="icon"><i class="la la-home"></i></span>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-database"></i></span>
+                        LB Package
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-user"></i></span>
+                        Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-envelope"></i></span>
+                        Email
+                        <span class="badge bg-primary ms-auto">9</span>
+                    </a>
+                </li>
+            </ul>
+
+            <h5 class="sidebar-nav-title">Template</h5>
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-layer-group"></i></span>
+                        UI Elements
+                        <sup class="text-success fw-semi-bold">new</sup>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-list"></i></span>
+                        Forms
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-chart-bar"></i></span>
+                        Charts
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="la la-table"></i></span>
+                        Tables
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-wrap">
+        <main id="content" class="content">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">YOU ARE HERE</li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+
+            <h1 class="page-title">
+                Dashboard
+                <small><small>Professional Light Blue Demo</small></small>
+            </h1>
+
+            <!-- Main Dashboard Row -->
+            <div class="row">
+                <div class="col-lg-8 col-xl-7">
+                    <section class="widget bg-transparent">
+                        <div class="widget-body">
+                            <div class="mapael">
+                                <div class="stats">
+                                    <h6 class="mt-3">GEO-LOCATIONS</h6>
+                                    <p class="h3 no-margin">
+                                        <span>1,656,843</span> 
+                                        <i class="la la-map-marker ms-2"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-lg-4 offset-xl-1">
+                    <section class="widget bg-transparent">
+                        <header>
+                            <h5>Map <span class="fw-semi-bold">Statistics</span></h5>
+                            <div class="widget-controls">
+                                <a href="#"><i class="la la-cog text-white"></i></a>
+                                <a href="#"><i class="la la-refresh text-white"></i></a>
+                            </div>
+                        </header>
+                        <div class="widget-body">
+                            <p>Status: <strong>Live</strong></p>
+                            <p class="mb-4">
+                                <span class="circle bg-default text-white me-2">
+                                    <i class="la la-map-marker"></i>
+                                </span>
+                                146 Countries, 2759 Cities
+                            </p>
+
+                            <div class="row align-items-center mb-3">
+                                <div class="col-9">
+                                    <h6 class="fw-semi-bold mb-1">Foreign Visits</h6>
+                                    <p class="deemphasize small mb-2">International Traffic</p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-primary js-progress-animate" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <span class="square square-lg bg-default text-white">
+                                        <small>75%</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center mb-3">
+                                <div class="col-9">
+                                    <h6 class="fw-semi-bold mb-1">Local Visits</h6>
+                                    <p class="deemphasize small mb-2">Domestic Traffic</p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger js-progress-animate" style="width: 84%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <span class="square square-lg bg-default text-white">
+                                        <small>84%</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center mb-4">
+                                <div class="col-9">
+                                    <h6 class="fw-semi-bold mb-1">Performance</h6>
+                                    <p class="deemphasize small mb-2">System Load</p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success js-progress-animate" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <span class="square square-lg bg-default text-white">
+                                        <small>92%</small>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <h6 class="fw-semi-bold mt-4 mb-2">Map Distributions</h6>
+                            <p>Tracking: <strong>Active</strong></p>
+                            <p class="mb-3">
+                                <span class="circle bg-default text-white me-2">
+                                    <i class="la la-cog"></i>
+                                </span>
+                                391 elements installed, 84 sets
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <section class="widget">
+                        <header>
+                            <h6>USERBASE GROWTH</h6>
+                            <div class="widget-controls">
+                                <a href="#"><i class="la la-cog"></i></a>
+                            </div>
+                        </header>
+                        <div class="widget-body">
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <h6 class="name">Overall Growth</h6>
+                                    <p class="value">76.38%</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h6 class="name">Monthly</h6>
+                                    <p class="value">10.38%</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h6 class="name">24h</h6>
+                                    <p class="value">3.38%</p>
+                                </div>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success js-progress-animate" style="width: 76%"></div>
+                            </div>
+                            <p>
+                                <span class="circle bg-default text-white me-2">
+                                    <i class="la la-arrow-up"></i>
+                                </span>
+                                <span class="fw-semi-bold">17% higher</span> than last month
+                            </p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-lg-4">
+                    <section class="widget">
+                        <header>
+                            <h6>TRAFFIC VALUES</h6>
+                            <div class="widget-controls">
+                                <a href="#"><i class="la la-cog"></i></a>
+                            </div>
+                        </header>
+                        <div class="widget-body">
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <h6 class="name">Overall Values</h6>
+                                    <p class="value">17,567,318</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h6 class="name">Monthly</h6>
+                                    <p class="value">55,120</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h6 class="name">24h</h6>
+                                    <p class="value">9,695</p>
+                                </div>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-danger js-progress-animate" style="width: 60%"></div>
+                            </div>
+                            <p>
+                                <span class="circle bg-default text-white me-2">
+                                    <i class="la la-arrow-down"></i>
+                                </span>
+                                <span class="fw-semi-bold">8% lower</span> than last month
+                            </p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-lg-4">
+                    <section class="widget">
+                        <header>
+                            <h6>PERFORMANCE METRICS</h6>
+                            <div class="widget-controls">
+                                <a href="#"><i class="la la-cog"></i></a>
+                            </div>
+                        </header>
+                        <div class="widget-body">
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <h6 class="name">CPU Usage</h6>
+                                    <p class="value">24.85%</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h6 class="name">Memory</h6>
+                                    <p class="value">68.2%</p>
+                                </div>
+                                <div class="stat-item">
+                                    <h6 class="name">Uptime</h6>
+                                    <p class="value">99.9%</p>
+                                </div>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-primary js-progress-animate" style="width: 85%"></div>
+                            </div>
+                            <p>
+                                <span class="circle bg-default text-white me-2">
+                                    <i class="la la-plus"></i>
+                                </span>
+                                <span class="fw-semi-bold">System optimal</span> performance
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <footer class="content-footer">
+                Light Blue HTML5 - Professional Dashboard Template by 
+                <a href="https://flatlogic.com" target="_blank" rel="nofollow">Flatlogic</a>
+                <br>
+                <small>Perfect replica demonstrating professional design standards</small>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animate progress bars on load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const progressBars = document.querySelectorAll('.js-progress-animate');
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                        bar.style.transition = 'width 2s ease-in-out';
+                    }, 100);
+                });
+            }, 500);
+        });
+
+        // Mobile sidebar toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.querySelector('[data-bs-toggle="offcanvas"]');
+            const sidebar = document.querySelector('#sidebar');
+            
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sidebar.classList.toggle('show');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
