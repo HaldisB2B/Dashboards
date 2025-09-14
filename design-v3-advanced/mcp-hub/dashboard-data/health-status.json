@@ -1,0 +1,202 @@
+{
+  "healthChecks": {
+    "github": {
+      "serverId": "github",
+      "status": "healthy",
+      "lastCheck": "2025-01-13T12:30:00Z",
+      "responseTime": 120,
+      "uptime": 99.5,
+      "errors": [],
+      "warnings": [],
+      "metrics": {
+        "requestsPerHour": 450,
+        "errorRate": 0.2,
+        "averageResponseTime": 115,
+        "peakResponseTime": 340,
+        "memoryUsage": "45MB",
+        "cpuUsage": "3.2%"
+      },
+      "dependencies": {
+        "github_api": "healthy",
+        "network": "healthy",
+        "auth_token": "valid"
+      }
+    },
+    "nodejs-sandbox": {
+      "serverId": "nodejs-sandbox",
+      "status": "healthy",
+      "lastCheck": "2025-01-13T12:29:45Z",
+      "responseTime": 250,
+      "uptime": 97.8,
+      "errors": [],
+      "warnings": [
+        "High memory usage detected during large file operations"
+      ],
+      "metrics": {
+        "requestsPerHour": 320,
+        "errorRate": 0.5,
+        "averageResponseTime": 245,
+        "peakResponseTime": 1200,
+        "memoryUsage": "128MB",
+        "cpuUsage": "8.7%"
+      },
+      "dependencies": {
+        "node_runtime": "healthy",
+        "npm_registry": "healthy",
+        "sandbox_environment": "healthy"
+      }
+    },
+    "filesystem": {
+      "serverId": "filesystem",
+      "status": "warning",
+      "lastCheck": "2025-01-13T12:28:30Z",
+      "responseTime": 180,
+      "uptime": 94.2,
+      "errors": [
+        "Permission denied for /restricted/path at 12:25:00Z"
+      ],
+      "warnings": [
+        "Slow response times for large directory listings",
+        "High disk I/O detected"
+      ],
+      "metrics": {
+        "requestsPerHour": 680,
+        "errorRate": 1.2,
+        "averageResponseTime": 175,
+        "peakResponseTime": 2400,
+        "memoryUsage": "67MB",
+        "cpuUsage": "5.1%"
+      },
+      "dependencies": {
+        "file_system": "warning",
+        "permissions": "degraded",
+        "disk_space": "healthy"
+      }
+    },
+    "web-search": {
+      "serverId": "web-search",
+      "status": "critical",
+      "lastCheck": "2025-01-13T08:15:00Z",
+      "responseTime": null,
+      "uptime": 0,
+      "errors": [
+        "API key invalid or expired",
+        "Connection timeout to Brave Search API",
+        "Service not responding"
+      ],
+      "warnings": [],
+      "metrics": {
+        "requestsPerHour": 0,
+        "errorRate": 100,
+        "averageResponseTime": null,
+        "peakResponseTime": null,
+        "memoryUsage": "0MB",
+        "cpuUsage": "0%"
+      },
+      "dependencies": {
+        "brave_api": "critical",
+        "network": "healthy",
+        "auth_key": "invalid"
+      }
+    }
+  },
+  "systemHealth": {
+    "overall": "degraded",
+    "healthScore": 70,
+    "activeServers": 2,
+    "warningServers": 1,
+    "criticalServers": 1,
+    "totalServers": 4,
+    "lastSystemCheck": "2025-01-13T12:30:00Z",
+    "nextScheduledCheck": "2025-01-13T12:35:00Z",
+    "checkInterval": "5 minutes",
+    "monitoring": {
+      "enabled": true,
+      "alertsEnabled": true,
+      "logLevel": "info",
+      "retentionDays": 30
+    }
+  },
+  "alerts": [
+    {
+      "id": "alert-001",
+      "severity": "critical",
+      "serverId": "web-search",
+      "message": "Web Search MCP server is completely down",
+      "timestamp": "2025-01-13T08:15:00Z",
+      "acknowledged": false,
+      "action": "Check API key and network connectivity"
+    },
+    {
+      "id": "alert-002",
+      "severity": "warning",
+      "serverId": "filesystem",
+      "message": "Filesystem MCP showing increased error rate",
+      "timestamp": "2025-01-13T11:45:00Z",
+      "acknowledged": true,
+      "action": "Monitor disk I/O and permissions"
+    },
+    {
+      "id": "alert-003",
+      "severity": "info",
+      "serverId": "nodejs-sandbox",
+      "message": "Memory usage spike during large operations",
+      "timestamp": "2025-01-13T12:20:00Z",
+      "acknowledged": false,
+      "action": "Consider memory optimization"
+    }
+  ],
+  "recommendations": [
+    {
+      "serverId": "web-search",
+      "priority": "high",
+      "recommendation": "Renew or replace expired Brave Search API key",
+      "impact": "Critical functionality unavailable",
+      "estimatedEffort": "5 minutes"
+    },
+    {
+      "serverId": "filesystem",
+      "priority": "medium",
+      "recommendation": "Review file permission configuration",
+      "impact": "Some operations may fail",
+      "estimatedEffort": "15 minutes"
+    },
+    {
+      "serverId": "nodejs-sandbox",
+      "priority": "low",
+      "recommendation": "Implement memory limits for large operations",
+      "impact": "Performance optimization",
+      "estimatedEffort": "2 hours"
+    },
+    {
+      "serverId": "github",
+      "priority": "low",
+      "recommendation": "Consider rate limiting for high-volume operations",
+      "impact": "Prevent API rate limiting",
+      "estimatedEffort": "30 minutes"
+    }
+  ],
+  "trends": {
+    "last24Hours": {
+      "averageHealthScore": 72,
+      "totalRequests": 35280,
+      "totalErrors": 157,
+      "averageResponseTime": 188,
+      "uptimePercentage": 97.3
+    },
+    "last7Days": {
+      "averageHealthScore": 78,
+      "totalRequests": 246960,
+      "totalErrors": 1103,
+      "averageResponseTime": 165,
+      "uptimePercentage": 98.1
+    },
+    "monthToDate": {
+      "averageHealthScore": 81,
+      "totalRequests": 989840,
+      "totalErrors": 4421,
+      "averageResponseTime": 152,
+      "uptimePercentage": 98.7
+    }
+  }
+}

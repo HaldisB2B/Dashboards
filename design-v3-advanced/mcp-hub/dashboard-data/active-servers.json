@@ -1,0 +1,95 @@
+{
+  "servers": {
+    "github": {
+      "name": "GitHub MCP Server",
+      "description": "Repository management, issues, pull requests, and code analysis",
+      "status": "active",
+      "healthScore": 98,
+      "capabilities": ["repository", "issues", "pull-requests", "search", "webhooks"],
+      "category": "Development",
+      "priority": "high",
+      "version": "0.5.0",
+      "lastUpdated": "2025-01-13T12:00:00Z",
+      "documentation": "https://github.com/modelcontextprotocol/servers/tree/main/src/github",
+      "useCases": ["Code analysis", "Issue tracking", "Repository management"],
+      "dependencies": [],
+      "metrics": {
+        "uptime": "99.5%",
+        "responseTime": "120ms",
+        "requestsPerHour": 450,
+        "errorRate": "0.2%"
+      }
+    },
+    "nodejs-sandbox": {
+      "name": "NodeJS Sandbox MCP",
+      "description": "Isolated JavaScript execution environment with npm support",
+      "status": "active",
+      "healthScore": 95,
+      "capabilities": ["javascript-execution", "npm-install", "file-operations", "sandbox"],
+      "category": "Runtime",
+      "priority": "high",
+      "version": "1.2.0",
+      "lastUpdated": "2025-01-12T15:30:00Z",
+      "documentation": "https://github.com/modelcontextprotocol/servers/tree/main/src/nodejs-sandbox",
+      "useCases": ["Code execution", "Testing", "Development workflows"],
+      "dependencies": ["filesystem"],
+      "metrics": {
+        "uptime": "97.8%",
+        "responseTime": "250ms",
+        "requestsPerHour": 320,
+        "errorRate": "0.5%"
+      }
+    },
+    "filesystem": {
+      "name": "File System MCP",
+      "description": "File operations, directory management, and content analysis",
+      "status": "warning",
+      "healthScore": 87,
+      "capabilities": ["file-read", "file-write", "directory-list", "file-search"],
+      "category": "System",
+      "priority": "medium",
+      "version": "0.4.2",
+      "lastUpdated": "2025-01-10T09:15:00Z",
+      "documentation": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+      "useCases": ["File management", "Content analysis", "Data processing"],
+      "dependencies": [],
+      "metrics": {
+        "uptime": "94.2%",
+        "responseTime": "180ms",
+        "requestsPerHour": 680,
+        "errorRate": "1.2%"
+      }
+    },
+    "web-search": {
+      "name": "Web Search MCP",
+      "description": "Internet search capabilities and web content analysis",
+      "status": "inactive",
+      "healthScore": 0,
+      "capabilities": ["web-search", "content-analysis", "url-fetch"],
+      "category": "External",
+      "priority": "low",
+      "version": "0.3.1",
+      "lastUpdated": "2025-01-08T14:45:00Z",
+      "documentation": "https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search",
+      "useCases": ["Research", "Content discovery", "Market analysis"],
+      "dependencies": [],
+      "metrics": {
+        "uptime": "0%",
+        "responseTime": "N/A",
+        "requestsPerHour": 0,
+        "errorRate": "100%"
+      }
+    }
+  },
+  "metadata": {
+    "totalServers": 4,
+    "activeServers": 2,
+    "inactiveServers": 1,
+    "warningServers": 1,
+    "averageHealthScore": 70,
+    "totalCapabilities": 12,
+    "lastUpdated": "2025-01-13T12:30:00Z",
+    "updateFrequency": "real-time",
+    "monitoringEnabled": true
+  }
+}

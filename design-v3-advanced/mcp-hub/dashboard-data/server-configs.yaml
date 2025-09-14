@@ -1,0 +1,138 @@
+# MCP Server Configuration Templates
+# Copy-paste ready configurations for Claude Code
+
+# GitHub MCP Server
+github_mcp:
+  name: "mcp-server-github"
+  description: "GitHub repository management and analysis"
+  command: "npx"
+  args:
+    - "-y"
+    - "@modelcontextprotocol/server-github"
+  env:
+    GITHUB_PERSONAL_ACCESS_TOKEN: "your_github_token_here"
+  setup_instructions: |
+    1. Get GitHub Personal Access Token from https://github.com/settings/tokens
+    2. Replace 'your_github_token_here' with your actual token
+    3. Add to your Claude Code configuration
+  capabilities:
+    - "Create and manage repositories"
+    - "Search code and repositories"
+    - "Manage issues and pull requests"
+    - "Access repository metadata"
+
+# NodeJS Sandbox MCP
+nodejs_sandbox:
+  name: "nodejs-sandbox"
+  description: "Isolated JavaScript execution environment"
+  command: "node"
+  args:
+    - "/path/to/nodejs-sandbox/dist/index.js"
+  env: {}
+  setup_instructions: |
+    1. Clone the nodejs-sandbox repository
+    2. Run 'npm install' and 'npm run build'
+    3. Update the path to point to your installation
+    4. Add to your Claude Code configuration
+  capabilities:
+    - "Execute JavaScript code safely"
+    - "Install and use npm packages"
+    - "File system operations within sandbox"
+    - "Isolated environment for testing"
+
+# File System MCP
+filesystem_mcp:
+  name: "filesystem"
+  description: "File operations and directory management"
+  command: "npx"
+  args:
+    - "-y"
+    - "@modelcontextprotocol/server-filesystem"
+  env: {}
+  setup_instructions: |
+    1. No additional setup required
+    2. Server will have access to file system
+    3. Consider security implications
+    4. Add to your Claude Code configuration
+  capabilities:
+    - "Read and write files"
+    - "List directory contents"
+    - "Search for files"
+    - "Analyze file content"
+
+# Web Search MCP (Brave Search)
+web_search_mcp:
+  name: "brave-search"
+  description: "Internet search and web content analysis"
+  command: "npx"
+  args:
+    - "-y"
+    - "@modelcontextprotocol/server-brave-search"
+  env:
+    BRAVE_API_KEY: "your_brave_api_key_here"
+  setup_instructions: |
+    1. Sign up for Brave Search API at https://brave.com/search/api/
+    2. Get your API key
+    3. Replace 'your_brave_api_key_here' with your actual key
+    4. Add to your Claude Code configuration
+  capabilities:
+    - "Search the web"
+    - "Fetch and analyze web content"
+    - "Get real-time information"
+    - "Research assistance"
+
+# Example Complete Configuration for Claude Code
+complete_configuration_example: |
+  {
+    "mcpServers": {
+      "mcp-server-github": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "env": {
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "your_github_token_here"
+        }
+      },
+      "nodejs-sandbox": {
+        "command": "node",
+        "args": ["/path/to/nodejs-sandbox/dist/index.js"]
+      },
+      "filesystem": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem"]
+      },
+      "brave-search": {
+        "command": "npx", 
+        "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+        "env": {
+          "BRAVE_API_KEY": "your_brave_api_key_here"
+        }
+      }
+    }
+  }
+
+# Configuration Management Notes
+configuration_notes:
+  location: "~/.config/claude/claude_desktop_config.json"
+  backup_recommended: true
+  restart_required: "After configuration changes, restart Claude Code"
+  troubleshooting:
+    - "Check logs in Claude Code developer console"
+    - "Verify environment variables are set correctly"
+    - "Ensure all required dependencies are installed"
+    - "Test each server individually before combining"
+
+# Security Best Practices
+security_guidelines:
+  tokens_and_keys:
+    - "Never commit API keys to version control"
+    - "Use environment variables for sensitive data"
+    - "Rotate keys regularly"
+    - "Use minimal required permissions"
+  file_access:
+    - "Be cautious with filesystem MCP permissions"
+    - "Consider sandboxing sensitive operations"
+    - "Monitor file access logs"
+  network_access:
+    - "Limit web search to trusted APIs"
+    - "Monitor outbound requests"
+    - "Use HTTPS endpoints only"

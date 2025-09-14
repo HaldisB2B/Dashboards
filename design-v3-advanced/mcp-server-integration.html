@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MCP Server Management Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --success-color: #34a853;
+            --danger-color: #ea4335;
+            --warning-color: #fbbc05;
+            --dark-color: #1e293b;
+            --light-gray: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-color: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #374151;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
+        /* MCP Server Cards */
+        .mcp-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mcp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .mcp-card.status-active::before { background: var(--success-color); }
+        .mcp-card.status-inactive::before { background: var(--danger-color); }
+        .mcp-card.status-warning::before { background: var(--warning-color); }
+
+        .mcp-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .mcp-card-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mcp-card-body {
+            padding: 25px;
+        }
+
+        .mcp-server-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .mcp-server-icon.github { background: #24292e; }
+        .mcp-server-icon.nodejs { background: #68A063; }
+        .mcp-server-icon.filesystem { background: #FF6B35; }
+        .mcp-server-icon.web-search { background: #4285F4; }
+        .mcp-server-icon.custom { background: #9333ea; }
+
+        .server-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .server-status.active {
+            background: rgba(52, 168, 83, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(52, 168, 83, 0.2);
+        }
+
+        .server-status.inactive {
+            background: rgba(234, 67, 53, 0.1);
+            color: var(--danger-color);
+            border: 1px solid rgba(234, 67, 53, 0.2);
+        }
+
+        .server-status.warning {
+            background: rgba(251, 188, 5, 0.1);
+            color: var(--warning-color);
+            border: 1px solid rgba(251, 188, 5, 0.2);
+        }
+
+        .health-score {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--success-color);
+        }
+
+        .health-score.warning { color: var(--warning-color); }
+        .health-score.danger { color: var(--danger-color); }
+
+        /* Capabilities Pills */
+        .capabilities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .capability-pill {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Configuration Panel */
+        .config-panel {
+            background: #1e1e1e;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .config-copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(66, 133, 244, 0.2);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .config-copy-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-btn.primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .action-btn.warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Discovery Feed */
+        .discovery-feed {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .discovery-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .discovery-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* System Overview */
+        .system-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .system-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <h1 class="page-title">MCP Server Management</h1>
+        <p class="page-subtitle">Centralized control for Model Context Protocol servers</p>
+
+        <!-- System Overview -->
+        <div class="system-overview">
+            <div class="metric-card">
+                <div class="metric-value" id="total-mcp-servers">0</div>
+                <div class="metric-label">Total MCP Servers</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value text-success" id="active-mcp-servers">0</div>
+                <div class="metric-label">Active Servers</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="avg-health-score">0%</div>
+                <div class="metric-label">Avg Health Score</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="total-capabilities">0</div>
+                <div class="metric-label">Total Capabilities</div>
+            </div>
+        </div>
+
+        <!-- Discovery Feed -->
+        <div class="discovery-feed">
+            <h5><i class="fas fa-search me-2"></i>Server Discovery</h5>
+            <div id="discovery-content">
+                <div class="discovery-item">
+                    <strong>New MCP Server Available:</strong> Database MCP - SQL query execution and management
+                    <button class="action-btn primary ms-2" onclick="addDiscoveredServer('database-mcp')">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </div>
+                <div class="discovery-item">
+                    <strong>Update Available:</strong> GitHub MCP v2.1.0 with enhanced repository analysis
+                    <button class="action-btn warning ms-2" onclick="updateServer('github-mcp')">
+                        <i class="fas fa-sync"></i> Update
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MCP Servers Grid -->
+        <div class="row" id="mcp-servers-container">
+            <!-- MCP Servers will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // MCP Server Configuration Data
+        const mcpServers = {
+            'github': {
+                name: 'GitHub MCP Server',
+                description: 'Repository management, issues, pull requests, and code analysis',
+                status: 'active',
+                healthScore: 98,
+                capabilities: ['repository', 'issues', 'pull-requests', 'search', 'webhooks'],
+                icon: 'github',
+                config: {
+                    name: 'mcp-server-github',
+                    command: 'npx',
+                    args: ['-y', '@modelcontextprotocol/server-github'],
+                    env: {
+                        'GITHUB_PERSONAL_ACCESS_TOKEN': 'your_github_token_here'
+                    }
+                },
+                documentation: 'https://github.com/modelcontextprotocol/servers/tree/main/src/github',
+                useCases: ['Code analysis', 'Issue tracking', 'Repository management'],
+                lastUpdated: '2025-01-13',
+                version: '0.5.0'
+            },
+            'nodejs-sandbox': {
+                name: 'NodeJS Sandbox MCP',
+                description: 'Isolated JavaScript execution environment with npm support',
+                status: 'active',
+                healthScore: 95,
+                capabilities: ['javascript-execution', 'npm-install', 'file-operations', 'sandbox'],
+                icon: 'nodejs',
+                config: {
+                    name: 'nodejs-sandbox',
+                    command: 'node',
+                    args: ['/path/to/nodejs-sandbox/dist/index.js'],
+                    env: {}
+                },
+                documentation: 'https://github.com/modelcontextprotocol/servers/tree/main/src/nodejs-sandbox',
+                useCases: ['Code execution', 'Testing', 'Development workflows'],
+                lastUpdated: '2025-01-12',
+                version: '1.2.0'
+            },
+            'filesystem': {
+                name: 'File System MCP',
+                description: 'File operations, directory management, and content analysis',
+                status: 'warning',
+                healthScore: 87,
+                capabilities: ['file-read', 'file-write', 'directory-list', 'file-search'],
+                icon: 'filesystem',
+                config: {
+                    name: 'filesystem',
+                    command: 'npx',
+                    args: ['-y', '@modelcontextprotocol/server-filesystem'],
+                    env: {}
+                },
+                documentation: 'https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem',
+                useCases: ['File management', 'Content analysis', 'Data processing'],
+                lastUpdated: '2025-01-10',
+                version: '0.4.2'
+            },
+            'web-search': {
+                name: 'Web Search MCP',
+                description: 'Internet search capabilities and web content analysis',
+                status: 'inactive',
+                healthScore: 0,
+                capabilities: ['web-search', 'content-analysis', 'url-fetch'],
+                icon: 'web-search',
+                config: {
+                    name: 'brave-search',
+                    command: 'npx',
+                    args: ['-y', '@modelcontextprotocol/server-brave-search'],
+                    env: {
+                        'BRAVE_API_KEY': 'your_brave_api_key_here'
+                    }
+                },
+                documentation: 'https://github.com/modelcontextprotocol/servers/tree/main/src/brave-search',
+                useCases: ['Research', 'Content discovery', 'Market analysis'],
+                lastUpdated: '2025-01-08',
+                version: '0.3.1'
+            }
+        };
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMCPServers();
+            updateSystemOverview();
+            startHealthMonitoring();
+        });
+
+        function renderMCPServers() {
+            const container = document.getElementById('mcp-servers-container');
+            container.innerHTML = '';
+
+            Object.keys(mcpServers).forEach(serverId => {
+                const server = mcpServers[serverId];
+                const serverElement = createMCPServerCard(serverId, server);
+                container.appendChild(serverElement);
+            });
+        }
+
+        function createMCPServerCard(serverId, server) {
+            const col = document.createElement('div');
+            col.className = 'col-lg-6 col-xl-4 fade-in';
+            
+            const healthClass = server.healthScore >= 90 ? 'success' : 
+                               server.healthScore >= 70 ? 'warning' : 'danger';
+
+            const statusIcon = server.status === 'active' ? 'fa-check-circle pulse' :
+                              server.status === 'warning' ? 'fa-exclamation-triangle' : 'fa-times-circle';
+
+            col.innerHTML = `
+                <div class="mcp-card status-${server.status}">
+                    <div class="mcp-card-header">
+                        <div class="d-flex align-items-center">
+                            <div class="mcp-server-icon ${server.icon}">
+                                <i class="fab fa-${server.icon}"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1">${server.name}</h6>
+                                <small class="text-muted">v${server.version} • ${server.lastUpdated}</small>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <div class="server-status ${server.status}">
+                                <i class="fas ${statusIcon}"></i>
+                                ${server.status.toUpperCase()}
+                            </div>
+                            <div class="health-score ${healthClass} mt-1">${server.healthScore}%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mcp-card-body">
+                        <p class="text-muted mb-3">${server.description}</p>
+                        
+                        <div class="capabilities">
+                            ${server.capabilities.map(cap => 
+                                `<span class="capability-pill">${cap}</span>`
+                            ).join('')}
+                        </div>
+                        
+                        <div class="config-panel">
+                            <button class="config-copy-btn" onclick="copyConfig('${serverId}')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+<pre>{
+  "mcpServers": {
+    "${server.config.name}": {
+      "command": "${server.config.command}",
+      "args": [${server.config.args.map(arg => `"${arg}"`).join(', ')}]${Object.keys(server.config.env).length > 0 ? `,
+      "env": {
+        ${Object.entries(server.config.env).map(([key, value]) => `"${key}": "${value}"`).join(',\n        ')}
+      }` : ''}
+    }
+  }
+}</pre>
+                        </div>
+                        
+                        <div class="quick-actions">
+                            <button class="action-btn ${server.status === 'active' ? 'success' : 'primary'}" 
+                                    onclick="toggleServer('${serverId}')">
+                                <i class="fas fa-${server.status === 'active' ? 'stop' : 'play'}"></i>
+                                ${server.status === 'active' ? 'Stop' : 'Start'}
+                            </button>
+                            <button class="action-btn primary" onclick="testServer('${serverId}')">
+                                <i class="fas fa-vial"></i> Test
+                            </button>
+                            <button class="action-btn warning" onclick="showDocs('${serverId}')">
+                                <i class="fas fa-book"></i> Docs
+                            </button>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                <strong>Use Cases:</strong> ${server.useCases.join(', ')}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+
+        function updateSystemOverview() {
+            const totalServers = Object.keys(mcpServers).length;
+            const activeServers = Object.values(mcpServers).filter(s => s.status === 'active').length;
+            const avgHealth = Object.values(mcpServers).reduce((sum, s) => sum + s.healthScore, 0) / totalServers;
+            const totalCapabilities = [...new Set(Object.values(mcpServers).flatMap(s => s.capabilities))].length;
+            
+            document.getElementById('total-mcp-servers').textContent = totalServers;
+            document.getElementById('active-mcp-servers').textContent = activeServers;
+            document.getElementById('avg-health-score').textContent = Math.round(avgHealth) + '%';
+            document.getElementById('total-capabilities').textContent = totalCapabilities;
+        }
+
+        function copyConfig(serverId) {
+            const server = mcpServers[serverId];
+            const config = JSON.stringify({
+                mcpServers: {
+                    [server.config.name]: {
+                        command: server.config.command,
+                        args: server.config.args,
+                        ...(Object.keys(server.config.env).length > 0 && { env: server.config.env })
+                    }
+                }
+            }, null, 2);
+
+            navigator.clipboard.writeText(config).then(() => {
+                showNotification('Configuration copied to clipboard!', 'success');
+            }).catch(() => {
+                showNotification('Failed to copy configuration', 'error');
+            });
+        }
+
+        function toggleServer(serverId) {
+            const server = mcpServers[serverId];
+            const newStatus = server.status === 'active' ? 'inactive' : 'active';
+            
+            server.status = newStatus;
+            server.healthScore = newStatus === 'active' ? 95 : 0;
+            
+            renderMCPServers();
+            updateSystemOverview();
+            
+            showNotification(
+                `${server.name} ${newStatus === 'active' ? 'started' : 'stopped'}`,
+                newStatus === 'active' ? 'success' : 'warning'
+            );
+        }
+
+        function testServer(serverId) {
+            const server = mcpServers[serverId];
+            showNotification(`Testing ${server.name}...`, 'info');
+            
+            // Simulate test
+            setTimeout(() => {
+                if (server.status === 'active') {
+                    showNotification(`${server.name} test completed successfully`, 'success');
+                } else {
+                    showNotification(`${server.name} is not running`, 'warning');
+                }
+            }, 2000);
+        }
+
+        function showDocs(serverId) {
+            const server = mcpServers[serverId];
+            window.open(server.documentation, '_blank');
+        }
+
+        function addDiscoveredServer(serverId) {
+            showNotification('Server discovery feature coming soon!', 'info');
+        }
+
+        function updateServer(serverId) {
+            showNotification('Server update feature coming soon!', 'info');
+        }
+
+        function showNotification(message, type = 'info') {
+            // Simple notification system
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'error' ? 'danger' : type} position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
+        }
+
+        function startHealthMonitoring() {
+            // Simulate health monitoring updates
+            setInterval(() => {
+                Object.keys(mcpServers).forEach(serverId => {
+                    const server = mcpServers[serverId];
+                    if (server.status === 'active') {
+                        // Simulate minor health fluctuations
+                        const fluctuation = Math.random() * 6 - 3; // -3 to +3
+                        server.healthScore = Math.max(80, Math.min(100, server.healthScore + fluctuation));
+                        server.healthScore = Math.round(server.healthScore);
+                    }
+                });
+                updateSystemOverview();
+            }, 30000); // Update every 30 seconds
+        }
+    </script>
+</body>
+</html>
